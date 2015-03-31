@@ -1,0 +1,3 @@
+<settings>
+	<localRepository>$OPENSHIFT_REPO_DIR</localRepository>
+</settings>

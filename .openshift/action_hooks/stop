@@ -1,0 +1,4 @@
+if [[ -n `ps -A | grep java` ]]; 
+	then
+		pkill -SIGTERM java
+fi

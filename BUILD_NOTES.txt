@@ -1,0 +1,273 @@
+---------------------------------------------------------------------------------------------------------------------------------
+Project Setup On Eclipse and Local System
+---------------------------------------------------------------------------------------------------------------------------------
+Prerequisites:-
+1. JDK latest (1.8 used for building the project)
+2. Eclipse latest (kepler used for building the project)
+3. apache maven latest (3.2.5/3.3.1 used for building the project)
+4. mongodb latest (2.6 used for building the project) alternatively signup to mongolab and create db over there and use it. Also the mongodb cartridge provided by openshift can be used if you need to maintain the data on openshift cloud itself
+5. git  (downloaded from http://git-scm.com/download/win)
+6. ruby (version 1.9.3 used)
+7. openshift client tools (described in steps below)
+
+
+For installing maven:-
+1. Download the maven binary zip from apache site.
+2. unzip the contents of the zip to local folder.
+3. add JAVA_HOME as environment variable as the parent folder of the jdk directory.
+4. add to path "maven unzipped folder\bin"
+
+
+Note:- Below steps can be done directly with eclipse IDE if maven is properly setup on the machine, by creating a new maven project with artifact id "maven-archetype-quickstart" and entering parameters mentioned in step 2
+
+For creating project startup files:-
+1. open command prompt, change directory to eclipse workspace and enter below command
+>mvn archetype:generate
+
+archetype is maven templating toolkit for which eclipse has builtin support
+
+2. The maven will download certain packages and the prompt for certain parameters required to build project files. please enter as below. For default values, just press enter.
+
+Choose a number or apply filter (format: [groupId:]artifactId, case sensitive contains): 558: Default
+Choose org.apache.maven.archetypes:maven-archetype-quickstart version: Default
+Define value for property 'groupId': : com.webcat (creates this package under src/main/java)
+Define value for property 'artifactId': : CatalogApp_OpenShift (project name) 
+Define value for property 'version':  1.0-SNAPSHOT: : Default
+Define value for property 'package':  com.webcat: : Default
+Confirm properties configuration: Y
+
+3. Import the project to eclipse by using the following "File->Import->Existing Maven Projects->next->browse to the eclipse workspace folder->Finish"
+4. Make sure to update JRE by right clicking on the project->Properties->Java Build Path->Libraries. Update JRE System library to latest one by clicking edit.
+5. from the imported projects pom.xml, remove the junit dependency and delete the files App.java and AppTest.java. Also test foldet can be deleted.
+
+---------------------------------------------------------------------------------------------------------------------------------
+Updating pom.xml
+---------------------------------------------------------------------------------------------------------------------------------
+1. Add below dependencies to pom.xml
+
+<dependencies>
+        <dependency>
+            <groupId>com.sparkjava</groupId>
+            <artifactId>spark-core</artifactId>
+            <version>2.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mongodb</groupId>
+            <artifactId>mongo-java-driver</artifactId>
+            <version>2.11.3</version>
+        </dependency>
+</dependencies>
+
+---------------------------------------------------------------------------------------------------------------------------------
+Setting up Openshift client tools 
+---------------------------------------------------------------------------------------------------------------------------------
+To deploy on Openshift cloud platform:
+1) signup for free openshift account, then go to settings and create your domain name.
+2) Download and install ruby(use version 1.9.3 as mentions on openshift page since tried installing 2.2.1 but rhc setup in step 4 is throwing error) and git on your machine
+3) enter below commands to verify ruby and git installations
+
+>ruby -v
+>git --version
+
+4) install openshift client tools by using below command
+
+>gem install rhc
+>rhc setup
+Enter the server hostname: |openshift.redhat.com|    (press enter)
+Login to openshift.redhat.com: user@example.com
+Password: password
+Generate a token now? (yes|no) yes
+Your public SSH key must be uploaded to the OpenShift server to access code.
+Upload now? (yes|no) yes
+
+---------------------------------------------------------------------------------------------------------------------------------
+Creating local git repository of the project
+---------------------------------------------------------------------------------------------------------------------------------
+open command prompt and change current directory to java workspace/project folder and enter the command
+>git init
+
+this will create a hidden .git folder in the project folder
+
+---------------------------------------------------------------------------------------------------------------------------------
+Installing JDK8 on Openshift
+---------------------------------------------------------------------------------------------------------------------------------
+ssh to openshift project if created earlier manually 
+>cd $OPENSHIFT_DATA_DIR
+>wget --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/8u40-b26/jdk-8u40-linux-x64.tar.gz
+>tar xvf *.tar.gz 
+>rm -f *.tar.gz
+
+create a file jdk8install.sh with above commands and push it to misc folder of the app directory and push it to git and execute below commands
+
+>rhc ssh catalogapp
+>sh $OPENSHIFT_REPO_DIR/misc/jdk8install.sh
+
+alternatively use the files ./openshift/action_hooks/start,stop and deploy
+and make the deploy file executable by using below git command after git add
+and make the start,stop, deploy file executable by using below git command after git add
+>git update-index --chmod=+x .openshift/action_hooks/deploy
+>git update-index --chmod=+x .openshift/action_hooks/start
+>git update-index --chmod=+x .openshift/action_hooks/stop
+
+
+---------------------------------------------------------------------------------------------------------------------------------
+Installing Maven on Openshift
+---------------------------------------------------------------------------------------------------------------------------------
+similar to JDK8 install on Openshift
+>cd $OPENSHIFT_DATA_DIR
+maven http://www.eu.apache.org/dist/maven/maven-3/3.3.1/binaries/apache-maven-3.3.1-bin.tar.gz
+
+untar it
+export below variables
+
+>export M2=$OPENSHIFT_DATA_DIR/apache-maven-3.3.1/bin
+>export JAVA_HOME=$OPENSHIFT_DATA_DIR/jdk1.8.0_40
+>export PATH=$JAVA_HOME/bin:$M2:$PATH
+
+---------------------------------------------------------------------------------------------------------------------------------
+Using Maven on Openshift
+---------------------------------------------------------------------------------------------------------------------------------
+create file settings with below structure
+<settings>
+	<localRepository>$OPENSHIFT_REPO_DIR</localRepository>
+</settings>
+
+use below commands to build the executables
+>cd $OPENSHIFT_REPO_DIR
+>mvn -s settings.xml dependency:unpack-dependencies compiler:compile
+>mkdir bin
+>cp target/dependency/* bin/
+>cp -nr target/classes/* bin/
+>mvn -s settings.xml clean
+
+for starting the application, use below command
+>cd $OPENSHIFT_REPO_DIR/bin
+>java com.webcat.AppStart
+
+Follow installation steps or alternatively use the files ./openshift/action_hooks/start,stop and deploy
+also copy settings.xml to project folder
+and make the start,stop, deploy file executable by using below git command after git add
+>git update-index --chmod=+x .openshift/action_hooks/deploy
+>git update-index --chmod=+x .openshift/action_hooks/start
+>git update-index --chmod=+x .openshift/action_hooks/stop
+
+
+---------------------------------------------------------------------------------------------------------------------------------
+Creating a default app on Openshift with DIY cartridge
+---------------------------------------------------------------------------------------------------------------------------------
+Steps to be followed after installing rhc under windows
+
+1) In command prompt, change directory to a working directory e.g .\Openshift.
+Create a new app with the command
+>rhc app create catalogapp diy           ///this will create a raw application with diy cartidge in openshift
+
+Note: for deleting the above app, use the command >rhc app delete catalogapp --confirm
+
+if the clone process fails, use the below command to colne the files to local system
+>rhc git-clone catalogapp                ///this will clone the contents of $OPENSHIFT_REPO_DIR to a folder "catalogapp" locally in your current folder
+
+this folder has below structure
+<folder name>
+|--.git (a hidden directory)
+|--.openshift (folder containing openshift hooks and all)
+|--diy (folder containing files for the app)
+|--misc
+|--README.md
+
+---------------------------------------------------------------------------------------------------------------------------------
+Using Eclipse git plugin
+---------------------------------------------------------------------------------------------------------------------------------
+The below git commands can be directly invoked by git eclipse plugin by right clicking on the project files and using Team command 
+
+---------------------------------------------------------------------------------------------------------------------------------
+Uploading local repository to github
+---------------------------------------------------------------------------------------------------------------------------------
+1) To put the above repository on github , use below commands assuming current directory="java workspace"
+create a remote repository named as CatalogApp in your github account
+e.g. https://github.com/bkawli/CatalogApp
+>cd CatalogApp_OpenShift
+>git init
+>git add .
+>git update-index --chmod=+x .openshift/action_hooks/deploy
+>git update-index --chmod=+x .openshift/action_hooks/start
+>git update-index --chmod=+x .openshift/action_hooks/stop
+>git commit -m "first commit"
+>git remote add origin https://github.com/bkawli/CatalogApp.git
+>git remote -v                                                           ///just for verification
+>git push origin master
+Username for 'https://github.com': githubusername
+Password for 'https://bkawli@github.com':
+
+the local files will be copied to the remote repository
+
+2) The above files can be checked by following commands(if openshift app is created and pushed)
+>rhc ssh catalogapp
+>cd $OPENSHIFT_REPO_DIR/diy
+>ls
+
+---------------------------------------------------------------------------------------------------------------------------------
+Performing changes to local repository
+---------------------------------------------------------------------------------------------------------------------------------
+1) To add files to git and update the app, use below commands assuming current directory="java workspace"
+>cd CatalogApp_OpenShift
+>git init (add/update the files in folder)
+>git add .
+>git commit -m "xxxx"
+>git push
+
+2) To delete a file, use commands in step 4 and instead of git add, use below and then commit and push
+>git rm <filepath>
+e.g.
+>git rm ./diy/test.txt
+
+---------------------------------------------------------------------------------------------------------------------------------
+Creating app from github code
+---------------------------------------------------------------------------------------------------------------------------------
+enter below command
+>rhc app create catalogapp diy --from-code=https://github.com/bkawli/CatalogApp.git
+
+---------------------------------------------------------------------------------------------------------------------------------
+Updating app from github code
+---------------------------------------------------------------------------------------------------------------------------------
+assume that changes have been done and committed to code on github
+
+>rhc app show catalogapp
+
+this will show the Git URL in the form
+ssh://<sshkey>@catalogapp-<domain name>.rhcloud.com/~/git/CatalogApp.git/
+
+clone your app by using 
+
+>rhc git-clone catalogapp
+>cd catalogapp
+>git remote set-url origin https://github.com/bkawli/CatalogApp.git
+>git pull origin master
+>git push ssh://<sshkey>@catalogapp-<domain name>.rhcloud.com/~/git/CatalogApp.git/
+
+open the app from browser and then click refresh. updated app must show up.
+
+---------------------------------------------------------------------------------------------------------------------------------
+checking gear data usage
+---------------------------------------------------------------------------------------------------------------------------------
+>rhc show-app catalogapp --gears quota
+
+
+---------------------------------------------------------------------------------------------------------------------------------
+Transfering files between the gear and local machine
+---------------------------------------------------------------------------------------------------------------------------------
+upload:
+>rhc scp catalogapp upload file.txt app-root/data
+
+download:
+>rhc scp catalogapp download ./ app-root/data/file.txt
+
+
+---------------------------------------------------------------------------------------------------------------------------------
+Connecting to remote mongoDB 
+---------------------------------------------------------------------------------------------------------------------------------
+For privacy reasons, predefined library has been created for which can connect to the remote DB.
+the DB can be accessed by below details
+
+package.class: com.webcatlib.DBConnector
+
+use function getDB of above object to get mongo java driver object of type DB
