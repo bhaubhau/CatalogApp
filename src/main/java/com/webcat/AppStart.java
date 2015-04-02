@@ -1,6 +1,10 @@
 package com.webcat;
 import static spark.Spark.*;
 
+import com.mongodb.DB;
+import com.mongodb.DBCollection;
+import com.mongodb.DBObject;
+import com.webcatlib.DBConnector;
 
 import spark.*;
 
@@ -8,9 +12,13 @@ public class AppStart {
 
 	public static void main(String[] args) throws Exception {
 		
+		
 		String IP_ADDRESS = System.getenv("OPENSHIFT_DIY_IP");		
 		int PORT;
 		String REPO_DIR;
+		
+		DBConnector dbconn=new DBConnector();
+		DB db=dbconn.getDB();
 		
 		if (IP_ADDRESS==null)
 		{
@@ -30,11 +38,18 @@ public class AppStart {
 		
 		
 		get("/",new Route(){
-			 public Object handle(Request request, Response response) {			 
-				 
+			 public Object handle(Request request, Response response) {						 
 				 response.redirect("index.html");
-				 return "";
-	             
+				 return "";	             
+	            }
+		});
+		
+		get("/json",new Route(){
+			 public Object handle(Request request, Response response) {						 
+				 DBCollection coll = db.getCollection("testcoll");
+				 DBObject myDoc = coll.findOne();				 
+				 String dbstr=myDoc.toString();					 		 
+				 return dbstr;	             
 	            }
 		});
 
