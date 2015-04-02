@@ -18,7 +18,7 @@ public class AppStart {
 		String REPO_DIR;
 		
 		DBConnector dbconn=new DBConnector();
-		DB db=dbconn.getDB();
+		final DB db=dbconn.getDB();
 		
 		if (IP_ADDRESS==null)
 		{
