@@ -7,11 +7,11 @@
 	</head>
 	<body ng-app="catalogPage" ng-controller="MainCtrl">
 		<div>
-			<img ng-src="images/{{currentimage}}" height="398" width="598" border="1"></img>
+			<img ng-src="file:///../images/{{currentimage}}" height="398" width="598" border="1"></img>
 		</div>
 		<br>
 		<div >
-			<img ng-src="images/{{image}}" 
+			<img ng-src="file:///../images/{{image}}" 
 			ng-repeat="image in images" 
 			ng-mouseover="updateCurrentImage(image)" height="98" width="148" border="1"></img>			
 		</div>		
