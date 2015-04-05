@@ -65,6 +65,7 @@ public class AppStart {
 			}
 		});
 		
+		/*
 		get("/json",new Route(){
 			public Object handle(Request request, Response response) 
 			{						 
@@ -108,6 +109,7 @@ public class AppStart {
 				return html;
 			}			
 		});
+		*/
 
 	}
 	
