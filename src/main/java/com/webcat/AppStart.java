@@ -74,6 +74,40 @@ public class AppStart {
 				return dbstr;	             
 			}
 		});
+		
+		
+		get("/updimg",new Route(){
+			public Object handle(Request request, Response response) 
+			{
+				String html = "";
+				try 
+				{
+					html=getStringFromFile(REPO_DIR + "updimg.html");
+				} 
+				catch (Exception e) 
+				{					
+					e.printStackTrace();
+				}
+				return html;
+			}			
+		});
+		
+		
+		get("/updimg_app.js",new Route(){
+			public Object handle(Request request, Response response) 
+			{
+				String html = "";
+				try 
+				{
+					html=getStringFromFile(REPO_DIR + "updimg_app.js");
+				} 
+				catch (Exception e) 
+				{					
+					e.printStackTrace();
+				}
+				return html;
+			}			
+		});
 
 	}
 	
