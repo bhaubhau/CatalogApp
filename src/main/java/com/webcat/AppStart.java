@@ -17,7 +17,7 @@ public class AppStart {
 		
 		String IP_ADDRESS = System.getenv("OPENSHIFT_DIY_IP");		
 		int PORT;
-		String REPO_DIR;
+		final String REPO_DIR;
 		String DATA_DIR;
 		
 		DBConnector dbconn=new DBConnector();
