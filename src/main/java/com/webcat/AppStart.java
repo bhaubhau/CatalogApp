@@ -44,11 +44,29 @@ public class AppStart {
 		get("/",new Route(){
 			public Object handle(Request request, Response response) 
 			{					 
-				response.redirect("home.html");			 
+				response.redirect("home");			 
 				return "";	             
 			}
-		});		
-				
+		});
+		
+		
+		get("/home",new Route(){
+			public Object handle(Request request, Response response) 
+			{		
+				String html = "";
+				try 
+				{
+					html=getStringFromFile(DATA_DIR + "home.html");
+				} 
+				catch (Exception e) 
+				{					
+					e.printStackTrace();
+				}
+				return html;	             
+			}
+		});
+		
+		
 		/*
 		get("/json",new Route(){
 			public Object handle(Request request, Response response) 
