@@ -44,7 +44,7 @@ public class AppStart {
 		get("/",new Route(){
 			public Object handle(Request request, Response response) 
 			{					 
-				response.redirect("home");			 
+				response.redirect("home.html");			 
 				return "";	             
 			}
 		});		
