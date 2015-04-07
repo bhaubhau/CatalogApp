@@ -47,24 +47,8 @@ public class AppStart {
 				response.redirect("home");			 
 				return "";	             
 			}
-		});
-		
-		get("/home",new Route(){
-			public Object handle(Request request, Response response) 
-			{		
-				String html = "";
-				try 
-				{
-					html=getStringFromFile(REPO_DIR + "home.html");
-				} 
-				catch (Exception e) 
-				{					
-					e.printStackTrace();
-				}
-				return html;	             
-			}
-		});
-		
+		});		
+				
 		/*
 		get("/json",new Route(){
 			public Object handle(Request request, Response response) 
