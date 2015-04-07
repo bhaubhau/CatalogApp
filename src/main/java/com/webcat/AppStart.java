@@ -56,7 +56,7 @@ public class AppStart {
 				String html = "";
 				try 
 				{
-					html=getStringFromFile(DATA_DIR + "public/home");
+					html=getStringFromFile(REPO_DIR + "home.html");
 				} 
 				catch (Exception e) 
 				{					
