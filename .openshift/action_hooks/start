@@ -1,6 +1,6 @@
 export PATH=$OPENSHIFT_DATA_DIR/jdk1.8.0_40/bin:$PATH
 cd $OPENSHIFT_REPO_DIR
-mv resources/public/home.html $OPENSHIFT_DATA_DIR/public/home.html
+mv resources/public/home.html $OPENSHIFT_DATA_DIR/public/home
 
 
 cd $OPENSHIFT_REPO_DIR/bin

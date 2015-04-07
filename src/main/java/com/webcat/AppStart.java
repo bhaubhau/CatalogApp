@@ -18,7 +18,7 @@ public class AppStart {
 		String IP_ADDRESS = System.getenv("OPENSHIFT_DIY_IP");		
 		int PORT;
 		final String REPO_DIR;
-		String DATA_DIR;
+		final String DATA_DIR;
 		
 		DBConnector dbconn=new DBConnector();
 		final DB db=dbconn.getDB();
@@ -56,7 +56,7 @@ public class AppStart {
 				String html = "";
 				try 
 				{
-					html=getStringFromFile(DATA_DIR + "home.html");
+					html=getStringFromFile(DATA_DIR + "public/home");
 				} 
 				catch (Exception e) 
 				{					
