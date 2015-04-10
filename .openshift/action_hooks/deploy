@@ -36,3 +36,7 @@ mvn -s settings.xml clean
 cp -nr com bin/
 rm webcatlib.jar
 rm -r com
+
+cd $OPENSHIFT_DATA_DIR
+mkdir public
+mkdir public/js
