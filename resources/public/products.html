@@ -33,8 +33,12 @@
 				</div>				
 			</div>
 		</nav>			
-		<div>
-			<p>{{products}}</p>
+		<div class="container-fluid">					
+			<div class=row ng-repeat="productrow in products track by $index" ng-if="$index % 5 == 0">
+				<div class="col-md-2" ng-repeat="i in [$index, $index + 1, $index + 2, $index + 3, $index + 4]" ng-if="products[i] != null"> 
+					<p align="center">{{products[i].ProductName}}</p>
+				</div>				
+			</div>
 		</div>
 	</body>
 </html>
