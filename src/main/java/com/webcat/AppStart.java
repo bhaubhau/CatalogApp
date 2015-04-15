@@ -4,8 +4,11 @@ import static spark.Spark.*;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+
+import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
+import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.webcatlib.DBConnector;
 
@@ -101,8 +104,25 @@ public class AppStart {
 		get("/getProducts",new Route(){
 			public Object handle(Request request, Response response) 
 			{	
-				String html = "{\"products\":[{\"product\":1},{\"product\":2}]}";
-				return html;
+				//mongodb query
+				//db.products.find({},{_id:0,Images:{$slice:1}})
+				String productsList = "";
+				DBCollection coll = db.getCollection("products");				
+				BasicDBObject querydoc=new BasicDBObject();
+				BasicDBObject projectiondoc=new BasicDBObject("_id",0);
+				projectiondoc.put("Images", new BasicDBObject("$slice",1));		
+				projectiondoc.put("Index", 0);
+				DBCursor cursor = coll.find(querydoc,projectiondoc).sort(new BasicDBObject("Index",1));
+				try 
+				{				
+					BasicDBObject prodlst=new BasicDBObject("products",cursor);					
+					productsList=prodlst.toString();
+				} 
+				finally 
+				{
+					   cursor.close();
+				}
+				return productsList;
 			}
 		});
 		
