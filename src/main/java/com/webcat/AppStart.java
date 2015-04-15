@@ -122,10 +122,55 @@ public class AppStart {
 				{
 					   cursor.close();
 				}
-				return productsList;
+				return productsList;				
 			}
 		});
 		
+		get("/notfound",new Route(){
+			public Object handle(Request request, Response response) 
+			{		
+				String html = "";
+				try 
+				{
+					html=getStringFromFile(REPO_DIR + "notfound.html");
+				} 
+				catch (Exception e) 
+				{					
+					e.printStackTrace();
+				}
+				return html;
+			}			
+		});		
+		
+		get("/unknown",new Route(){
+			public Object handle(Request request, Response response) 
+			{		
+				String html = "";
+				try 
+				{
+					html=getStringFromFile(REPO_DIR + "unknown.html");
+				} 
+				catch (Exception e) 
+				{					
+					e.printStackTrace();
+				}
+				return html;
+			}			
+		});	
+		
+		/*
+		get("*",new Route(){
+			public Object handle(Request request, Response response) 
+			{	
+				if(response.raw().getStatus()==404)
+				{
+					response.redirect("notfound");
+				}
+				return "";
+			}
+		});
+		*/	
+				
 		/*
 		get("/json",new Route(){
 			public Object handle(Request request, Response response) 
