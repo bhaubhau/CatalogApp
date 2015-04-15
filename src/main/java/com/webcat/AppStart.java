@@ -98,8 +98,13 @@ public class AppStart {
 			}
 		});
 		
-
-		
+		get("/getProducts",new Route(){
+			public Object handle(Request request, Response response) 
+			{	
+				String html = "{\"products\":[{\"product\":1},{\"product\":2}]}";
+				return html;
+			}
+		});
 		
 		/*
 		get("/json",new Route(){
