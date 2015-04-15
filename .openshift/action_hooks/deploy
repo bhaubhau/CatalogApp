@@ -38,5 +38,11 @@ rm webcatlib.jar
 rm -r com
 
 cd $OPENSHIFT_DATA_DIR
-mkdir public
-mkdir public/js
+if [ ! -d public]
+	then
+		mkdir public
+fi
+if [ ! -d public/js]
+	then
+		mkdir public/js
+fi
