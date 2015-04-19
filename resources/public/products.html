@@ -58,10 +58,7 @@
 					<a href="products/{{products[i].ProductName}}" class="thumbnail">				 
 						<p align="center">{{products[i].ProductName}}</p>
 						<img src="productImages/{{products[i].ProductName}}/{{products[i].Images[0]}}" style="width:150px;height:150px">
-					</a>
-				<div class="col-md-2" ng-repeat="i in [$index, $index + 1, $index + 2, $index + 3, $index + 4]" ng-if="products[i] != null"> 
-					<p align="center">{{products[i].ProductName}}</p>
-				</div>				
+					</a>										
 			</div>
 		</div>
 	</body>
