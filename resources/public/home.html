@@ -4,19 +4,37 @@
 		<title>Welcome to CatalogApp</title>
 		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.10/angular.min.js"></script>				
+		<style>
+			body 
+			{ 
+				padding-top: 70px; 
+			}		
+			
+			#search input.form-fix
+			{
+				position: relative;
+				top: 10px;			
+			}		
+			
+			#search .has-feedback .form-control-feedback
+			{
+				top: 10px;    		
+	    		left: 0px;
+			}
+					
+			#bottomNavbar .navbar-text
+			{
+				position: absolute;
+		    	width: 100%;
+		    	left: 0px;
+		    	top: 10px;
+				text-align: center;
+				vertical-align: middle;
+				margin: auto;
+			}
+						
+		</style>
 	</head>
-	<style>
-		body { padding-top: 70px; }
-		
-		.navbar-centered-text
-		{
-			position: absolute;
-	    	width: 100%;
-	    	left: 0;
-			text-align: center;
-			margin: auto;
-		}
-	</style>
 	<body>
 		<nav class="navbar navbar-inverse navbar-fixed-top">
 			<div class="container-fluid">
@@ -31,9 +49,9 @@
 					</ul>													
 					<ul class="nav navbar-nav navbar-right">
 						<li>
-							<form class="form-inline" role="form">
+							<form class="form-inline" role="form" id="search">
 								<div class="form-group has-success has-feedback">																	
-									<input type="text" class="form-control" placeholder="Search">	
+									<input type="text" class="form-control form-fix" placeholder="   Search">	
 									<span class="glyphicon glyphicon-search form-control-feedback"></span>
 								</div>						
 							</form>
@@ -45,8 +63,8 @@
 			</div>
 		</nav>	
 		<div class="container-fluid">
-		<nav class="navbar navbar-default navbar-fixed-bottom">			
-				<p class="navbar-centered-text">Site developed and maintained by BK.</p>					
+		<nav class="navbar navbar-default navbar-fixed-bottom" id="bottomNavbar">			
+				<p class="navbar-text">Site developed and maintained by BK.</p>					
 		</nav>
 		</div>
 	</body>
