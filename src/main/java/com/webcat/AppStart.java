@@ -89,15 +89,36 @@ public class AppStart {
 			public Object handle(Request request, Response response) 
 			{		
 				String html = "";
-				try 
+				String reqprod=request.splat()[0];
+				DBCollection coll = db.getCollection("products");				
+				BasicDBObject querydoc=new BasicDBObject("ProductName",reqprod);
+				BasicDBObject projectiondoc=new BasicDBObject("_id",0);
+				DBCursor cursor = coll.find(querydoc,projectiondoc);
+				if(cursor.length()>0)
 				{
-					html=getStringFromFile(REPO_DIR + "productPage.html");
-				} 
-				catch (Exception e) 
-				{					
-					e.printStackTrace();
+					try 
+					{
+						html=getStringFromFile(REPO_DIR + "productPage.html");
+						
+					} 
+					catch (Exception e) 
+					{					
+						e.printStackTrace();
+					}
+					return reqprod;	     
 				}
-				return html;	             
+				else
+				{
+					try 
+					{
+						html=getStringFromFile(REPO_DIR + "notfound.html");						
+					} 
+					catch (Exception e) 
+					{					
+						e.printStackTrace();
+					}
+					return html;	   
+				}
 			}
 		});
 		
