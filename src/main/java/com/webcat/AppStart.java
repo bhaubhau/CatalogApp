@@ -85,6 +85,22 @@ public class AppStart {
 			}
 		});
 		
+		get("/products/*",new Route(){
+			public Object handle(Request request, Response response) 
+			{		
+				String html = "";
+				try 
+				{
+					html=getStringFromFile(REPO_DIR + "productPage.html");
+				} 
+				catch (Exception e) 
+				{					
+					e.printStackTrace();
+				}
+				return html;	             
+			}
+		});
+		
 		get("/contact",new Route(){
 			public Object handle(Request request, Response response) 
 			{		
