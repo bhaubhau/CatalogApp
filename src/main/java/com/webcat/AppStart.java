@@ -41,8 +41,15 @@ public class AppStart {
 		}
 		externalStaticFileLocation(DATA_DIR + "public/");
 		setIpAddress(IP_ADDRESS);
-		setPort(PORT);		
+		setPort(PORT);				
 		
+		after(new Filter(){
+			@Override
+			public void handle(Request request, Response response) throws Exception 
+			{
+				System.out.println(response.body());		
+			}			
+		});
 		
 		get("/",new Route(){
 			public Object handle(Request request, Response response) 
