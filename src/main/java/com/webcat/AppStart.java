@@ -4,12 +4,12 @@ import static spark.Spark.*;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.util.ArrayList;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
-import com.mongodb.DBObject;
 import com.webcatlib.DBConnector;
 
 import spark.*;
@@ -23,6 +23,8 @@ public class AppStart {
 		final String REPO_DIR;
 		final String DATA_DIR;		
 		
+		//final ArrayList <String> BASE_URLs=new ArrayList <String>();
+		
 		DBConnector dbconn=new DBConnector();
 		final DB db=dbconn.getDB();
 		
@@ -31,25 +33,32 @@ public class AppStart {
 			IP_ADDRESS = "localhost";		
 			PORT = 8080;
 			REPO_DIR=System.getProperty("user.dir") + "/resources/public/";	
-			DATA_DIR="E:/CatalogApp_Data_dir/";
+			DATA_DIR="E:/CatalogApp_Data_dir/";			
+			//BASE_URLs.add("http://" + IP_ADDRESS + ":" + PORT + "/");
 		}
 		else
-		{	
+		{				
 			PORT = Integer.parseInt(System.getenv("OPENSHIFT_DIY_PORT"));	
 			REPO_DIR=System.getenv("OPENSHIFT_REPO_DIR") + "resources/public/";	
 			DATA_DIR=System.getenv("OPENSHIFT_DATA_DIR");
+			//BASE_URLs.add("http://" + System.getenv("OPENSHIFT_APP_DNS") +"/");			
 		}
 		externalStaticFileLocation(DATA_DIR + "public/");
 		setIpAddress(IP_ADDRESS);
-		setPort(PORT);				
+		setPort(PORT);	
 		
-		after(new Filter(){
+		//BASE_URLs.add(BASE_URLs.get(0)+"");
+		
+		/*
+		before(new Filter(){
 			@Override
 			public void handle(Request request, Response response) throws Exception 
 			{
-				System.out.println(response.body());		
+				boolean urlvalid=false;
+				
 			}			
 		});
+		*/
 		
 		get("/",new Route(){
 			public Object handle(Request request, Response response) 
