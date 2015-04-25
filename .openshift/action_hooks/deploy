@@ -42,7 +42,7 @@ if [ ! -d public]
 	then
 		mkdir public
 fi
-if [ ! -d public/js]
+if [ -d public/js]
 	then
-		mkdir public/js
+		rm -r public/js
 fi
