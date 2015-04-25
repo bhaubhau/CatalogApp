@@ -10,6 +10,7 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
+import com.mongodb.DBObject;
 import com.webcatlib.DBConnector;
 
 import spark.*;
@@ -135,6 +136,34 @@ public class AppStart {
 					}
 					return html;	   
 				}
+			}
+		});
+		
+		get("/getProductDetails/*",new Route(){
+			public Object handle(Request request, Response response) 
+			{		
+				String html = "";
+				String reqprod=request.splat()[0];
+				DBCollection coll = db.getCollection("products");				
+				BasicDBObject querydoc=new BasicDBObject("ProductName",reqprod);
+				BasicDBObject projectiondoc=new BasicDBObject("_id",0);
+				DBObject prod=coll.findOne(querydoc,projectiondoc);
+				if(prod!=null)
+				{					
+					return prod.toString();	     
+				}
+				else
+				{
+					try 
+					{
+						html=getStringFromFile(REPO_DIR + "notfound.html");						
+					} 
+					catch (Exception e) 
+					{					
+						e.printStackTrace();
+					}
+					return html;	   
+				}             
 			}
 		});
 		
