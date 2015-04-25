@@ -1,6 +1,8 @@
 var app=angular.module('product',[]);
 
 app.controller('ProductCtrl', function($scope,$location) {
-	$scope.name=$location.absUrl();
+	var url=$location.absUrl();
+	var indx=url.indexOf('/products');
+	$scope.name=url.substr(indx);
 	
 });
