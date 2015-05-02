@@ -47,3 +47,8 @@ if [ -d "public/js" ];
 	then
 		rm -r public/js
 fi
+
+if [ -d "public/css" ];
+	then
+		rm -r public/css
+fi

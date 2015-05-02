@@ -24,6 +24,7 @@
 			}
 			
 		</style>
+		<link rel="stylesheet" href="../css/productDetail.css">
 	</head>
 	<body>
 		<nav class="navbar navbar-inverse navbar-fixed-top">
@@ -52,8 +53,10 @@
 				</div>				
 			</div>
 		</nav>			
-		<div class="container-fluid">					
+		<div class="container-fluid">
+			<div class=row><h3 align="center">{{product.ProductName}}</h3></div>					
 			{{product}}
+			<div class="mainimg"></div>
 		</div>
 	</body>
 </html>
