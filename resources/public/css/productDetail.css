@@ -31,3 +31,9 @@ div.mainimg
     width: 410px;    
     display: inline-block;
 }
+
+div.mainimg img
+{
+	height: 400px;
+	width: 400px;
+}
