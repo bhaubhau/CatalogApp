@@ -16,6 +16,12 @@ div.sliderarrows
     vertical-align: middle;
 }
 
+div.sliderarrows img
+{	
+	height: 100px;
+	width: 100px;
+}
+
 div.mainimg
 {
 	margin-left: 25px;
