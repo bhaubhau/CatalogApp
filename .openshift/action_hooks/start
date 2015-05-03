@@ -2,6 +2,8 @@ export PATH=$OPENSHIFT_DATA_DIR/jdk1.8.0_40/bin:$PATH
 cd $OPENSHIFT_REPO_DIR
 mv resources/public/js $OPENSHIFT_DATA_DIR/public
 mv resources/public/css $OPENSHIFT_DATA_DIR/public
+mv resources/public/next.png $OPENSHIFT_DATA_DIR/public/next.png
+mv resources/public/previous.png $OPENSHIFT_DATA_DIR/public/previous.png
 
 cd $OPENSHIFT_REPO_DIR/bin
 nohup java com.webcat.AppStart &
