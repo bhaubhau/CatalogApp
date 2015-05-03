@@ -6,9 +6,10 @@ app.controller('ProductCtrl',['$scope','$location','$http',function($scope,$loca
 	var indx=url.indexOf(baseurl) + baseurl.length + 1;
 	var name=url.substr(indx);
 	var resp=$http.get("/getProductDetails/" + name);	
-	resp.success(function(data) {$scope.product = JSON.parse(data);});		
+	resp.success(function(data) {$scope.product = data;});		
 	$scope.minindex=1;
-	//$scope.maxindex=$scope.product.Images.length;
+	//$scope.maxindex=$scope.product.Images.length;	
+	$scope.maxindex=Object.keys('$scope.product.Images').length;
 	
 }]);
 
