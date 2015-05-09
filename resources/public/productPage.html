@@ -58,7 +58,9 @@
 				<h4 align="center">{{product.ProductName}}</h4>
 			</div>
 			<div align="center">				
-				<div class="mainimg"></div>
+				<div class="mainimg">
+					<img src="../productImages/{{currimg}}">
+				</div>
 			</div>
 			<div class=row ng-show="currindex>0">
 				<div class="col-md-3"></div>
@@ -68,16 +70,24 @@
 					</div>				
 				</div>
 				<div class="col-md-1" align="center">
-					<div class="sliderimg" ng-show="maxindex>=1"></div>
+					<div class="sliderimg" ng-show="maxindex>=1">
+						<img src="../productImages/{{sl_img_1}}" ng-mouseover="upd_sl_img_1()">
+					</div>
 				</div>
 				<div class="col-md-1" align="center">
-					<div class="sliderimg" ng-show="maxindex>=2"></div>
+					<div class="sliderimg" ng-show="maxindex>=2">
+						<img src="../productImages/{{sl_img_2}}" ng-mouseover="upd_sl_img_2()">
+					</div>
 				</div>
 				<div class="col-md-1" align="center">
-					<div class="sliderimg" ng-show="maxindex>=3"></div>
+					<div class="sliderimg" ng-show="maxindex>=3">
+						<img src="../productImages/{{sl_img_3}}" ng-mouseover="upd_sl_img_3()">
+					</div>
 				</div>
 				<div class="col-md-1" align="center">
-					<div class="sliderimg" ng-show="maxindex>=4"></div>
+					<div class="sliderimg" ng-show="maxindex>=4">
+						<img src="../productImages/{{sl_img_4}}" ng-mouseover="upd_sl_img_4()">
+					</div>
 				</div>
 				<div class="col-md-1" align="center" ng-show="slideroffset+4<maxindex && maxindex>4">
 					<div class="sliderarrows">
@@ -92,11 +102,7 @@
 		<div class="container">
   			<div class="jumbotron">
   				<h3 align="center">Description</h3>
-  				<p>Here will be the description of the product.</p>
-  				<p>minindex: {{minindex}}</p>
-  				<p>maxindex: {{maxindex}}</p>
-  				<p>currindex: {{currindex}}</p>
-  				<p>slideroffset: {{slideroffset}}</p>
+  				<p>Here will be the description of the product.</p>  				
   			</div>
   		</div> 
 	</body>

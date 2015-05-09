@@ -22,7 +22,20 @@ app.controller('ProductCtrl',['$scope','$location','$http',function($scope,$loca
 			{
 				$scope.currindex=1;
 			}
-						
+			$scope.currimg = $scope.product.ProductName + "/" + $scope.product.Images[0];	
+			$scope.sl_img_1 = $scope.product.ProductName + "/" + $scope.product.Images[0];
+			if($scope.maxindex>=2)
+			{
+				$scope.sl_img_2 = $scope.product.ProductName + "/" + $scope.product.Images[1];
+			}
+			if($scope.maxindex>=3)
+			{
+				$scope.sl_img_3 = $scope.product.ProductName + "/" + $scope.product.Images[2];
+			}
+			if($scope.maxindex>=4)
+			{
+				$scope.sl_img_4 = $scope.product.ProductName + "/" + $scope.product.Images[3];
+			}			
 		})
 		.error(function(data, status, headers, config) {
 			
@@ -34,15 +47,43 @@ app.controller('ProductCtrl',['$scope','$location','$http',function($scope,$loca
 		{
 			$scope.slideroffset=$scope.slideroffset+1;
 		}
-	}
+		$scope.sl_img_1 = $scope.product.ProductName + "/" + $scope.product.Images[$scope.slideroffset];
+		$scope.sl_img_2 = $scope.product.ProductName + "/" + $scope.product.Images[$scope.slideroffset+1];
+		$scope.sl_img_3 = $scope.product.ProductName + "/" + $scope.product.Images[$scope.slideroffset+2];
+		$scope.sl_img_4 = $scope.product.ProductName + "/" + $scope.product.Images[$scope.slideroffset+3];
+	};
 	
 	$scope.decrementslider=function()
 	{
 		if($scope.slideroffset>0)
 		{
-			$scope.slideroffset=$scope.slideroffset-1;
+			$scope.slideroffset=$scope.slideroffset-1;			
 		}
+		$scope.sl_img_1 = $scope.product.ProductName + "/" + $scope.product.Images[$scope.slideroffset];
+		$scope.sl_img_2 = $scope.product.ProductName + "/" + $scope.product.Images[$scope.slideroffset+1];
+		$scope.sl_img_3 = $scope.product.ProductName + "/" + $scope.product.Images[$scope.slideroffset+2];
+		$scope.sl_img_4 = $scope.product.ProductName + "/" + $scope.product.Images[$scope.slideroffset+3];
+	};
+	
+	$scope.upd_sl_img_1=function()
+	{
+		$scope.currimg = $scope.sl_img_1;
+	};
+	
+	$scope.upd_sl_img_2=function()
+	{
+		$scope.currimg = $scope.sl_img_2;
 	}
+	
+	$scope.upd_sl_img_3=function()
+	{
+		$scope.currimg = $scope.sl_img_3;
+	};
+	
+	$scope.upd_sl_img_4=function()
+	{
+		$scope.currimg = $scope.sl_img_4;
+	};
 		
 }]);
 

@@ -5,7 +5,15 @@ div.sliderimg
     height: 110px;
     width: 110px;    
     display: inline-block;
+    vertical-align: middle;
 }
+
+div.sliderimg img
+{
+	height: 100px;
+	width: 100px;
+}
+
 
 div.sliderarrows
 {	
