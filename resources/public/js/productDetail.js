@@ -73,7 +73,7 @@ app.controller('ProductCtrl',['$scope','$location','$http',function($scope,$loca
 	$scope.upd_sl_img_2=function()
 	{
 		$scope.currimg = $scope.sl_img_2;
-	}
+	};
 	
 	$scope.upd_sl_img_3=function()
 	{
