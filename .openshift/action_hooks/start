@@ -4,6 +4,7 @@ mv resources/public/js $OPENSHIFT_DATA_DIR/public
 mv resources/public/css $OPENSHIFT_DATA_DIR/public
 mv resources/public/next.png $OPENSHIFT_DATA_DIR/public/next.png
 mv resources/public/previous.png $OPENSHIFT_DATA_DIR/public/previous.png
+mv resources/public/favicon.png $OPENSHIFT_DATA_DIR/public/favicon.png
 
 cd $OPENSHIFT_REPO_DIR/bin
 nohup java com.webcat.AppStart &
