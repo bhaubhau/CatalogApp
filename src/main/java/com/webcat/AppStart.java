@@ -32,7 +32,7 @@ public class AppStart {
 		if (IP_ADDRESS==null)
 		{
 			IP_ADDRESS = "localhost";		
-			PORT = 8080;
+			PORT = 4567;
 			REPO_DIR=System.getProperty("user.dir") + "/resources/public/";	
 			DATA_DIR="E:/CatalogApp_Data_dir/";			
 			//BASE_URLs.add("http://" + IP_ADDRESS + ":" + PORT + "/");
