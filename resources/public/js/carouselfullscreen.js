@@ -1,22 +1,17 @@
-/******************************************************************************
-	Transforms the basic Twitter Bootstrap Carousel into Fullscreen Mode
-	@author Fabio Mangolini
-     http://www.responsivewebmobile.com
-******************************************************************************/
 jQuery(document).ready(function() {
 	$('.carousel').carousel({
     	pause: "false",
     	interval: 4000
 	});
 
-	$('.carousel').css({'margin-top': 0, 'width': $(window).outerWidth(20), 'height': $(window).outerHeight() - 140});
-	//$('.carousel-inner').css({'z-index': 0});
+	$('.carousel').css({'margin-top': 0, 'width': $(window).outerWidth(20), 'height': $(window).outerHeight() - 140});	
 	$('.carousel .item').css({'position': 'fixed','width':'100%','height':'100%'});
+	//$('.carousel-inner div.item img').css({'padding-top': '70px'});
 	
 	$('.carousel-inner div.item img').each(function() {
-		var imgSrc = $(this).attr('src');
+		var imgSrc = $(this).attr('src');		
 		$(this).parent().css(
-				{'background': 'url('+imgSrc+') center center no-repeat', 
+				{'background': 'url('+imgSrc+') center center no-repeat'					 
 				 //'-webkit-background-size': '100% ', 
 				 //'-moz-background-size': '100%', 
 				 //'-o-background-size': '100%', 
@@ -25,7 +20,7 @@ jQuery(document).ready(function() {
 				 //'-moz-background-size': 'cover', 
 				 //'-o-background-size': 'cover', 
 				 //'background-size': 'cover'
-				});
+				});		
 		$(this).remove();
 	});
 	
