@@ -4,8 +4,12 @@
 		<title>CatalogApp Admin</title>
 	</head>
 	<body>
-		<script src="./js/upload.js"></script>
-	
+		<form action="/upload" enctype="application/x-www-form-urlencoded" method="post">
+			<p>Please specify a file, or a set of files:<br><input type="file"></p>
+			<div>
+				<input type="submit" value="Send">
+			</div>
+		</form>
 	</body>
 </html>
 	

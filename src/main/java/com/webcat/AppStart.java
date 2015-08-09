@@ -86,6 +86,15 @@ public class AppStart {
 			}
 		});
 		
+		post("/upload",new Route(){
+			public Object handle(Request request, Response response) 
+			{		
+				String str = request.headers().toString();
+				System.out.println(str);
+				return "";
+			}
+		});
+		
 		get("/home",new Route(){
 			public Object handle(Request request, Response response) 
 			{		
