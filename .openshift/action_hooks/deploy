@@ -52,3 +52,4 @@ if [ -d "public/css" ];
 	then
 		rm -r public/css
 fi
+
