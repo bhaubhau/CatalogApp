@@ -1,6 +1,17 @@
-var app=angular.module('product',[]);
+var app=angular.module('product',['ngCookies']);
 
-app.controller('ProductCtrl',['$scope','$location','$http',function($scope,$location,$http) {
+app.controller('ProductCtrl',['$scope','$location','$http','$cookies',function($scope,$location,$http,$cookies) {
+	var resp=$http.get("../isAdmin",{headers: {'withCredentials': true}});	
+	resp.success(function(data) {
+		if(data=='true')
+		{
+			$scope.adminUser=true;
+		}
+		else
+		{
+			$scope.adminUser=false;
+		}
+	});	
 	var url=$location.absUrl();
 	var baseurl='/products';
 	var indx=url.indexOf(baseurl) + baseurl.length + 1;

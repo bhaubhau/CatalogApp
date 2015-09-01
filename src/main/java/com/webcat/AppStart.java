@@ -354,9 +354,7 @@ public class AppStart {
 				catch (Exception e) 
 				{					
 					e.printStackTrace();
-				}
-				ADMIN_COOKIE.delete(0, 32);		
-				ADMIN_COOKIE.append("");
+				}				
 				return html;	             
 			}
 		});	
@@ -401,7 +399,7 @@ public class AppStart {
 				    {
 				    	e.printStackTrace();
 				    }
-				    if(username.equals("administrator") && password.equals("deenuka"))
+				    if(username.equals("administrator") && password.equals("peeppeepdeep"))
 				    {
 				    	ADMIN_COOKIE.delete(0, 32);
 				    	for (int i=0;i<32;i++)
@@ -477,10 +475,28 @@ public class AppStart {
 		get("/admin/logout",new Route(){
 			public Object handle(Request request, Response response) 
 			{					 
+				response.cookie("Catalogapp_Adm_cookie",ADMIN_COOKIE.toString(),0);
+				ADMIN_COOKIE.delete(0, 32);		
+				ADMIN_COOKIE.append("");				
 				response.redirect("/admin/login");			 
 				return "";	             
 			}
-		});
+		});		
+		
+		get("/isAdmin",new Route(){
+			public Object handle(Request request, Response response) 
+			{					 
+				if(request.cookie("Catalogapp_Adm_cookie").equals(ADMIN_COOKIE.toString()))
+				{			 
+					return "true";	  
+				}
+				else
+				{
+					return "false";
+				}
+			}
+		});	
+		
 	}
 	
 	
