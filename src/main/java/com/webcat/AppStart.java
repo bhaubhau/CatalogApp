@@ -6,6 +6,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -64,12 +66,12 @@ public class AppStart {
 		//BASE_URLs.add(BASE_URLs.get(0)+"");
 		
 		/*
-		before(new Filter(){
+		after(new Filter(){
 			@Override
 			public void handle(Request request, Response response) throws Exception 
 			{
-				boolean urlvalid=false;
-				
+				System.out.println("Req Url:" + request.url());				
+				System.out.println("Resp Status:" + response.raw().getStatus());
 			}			
 		});
 		*/
