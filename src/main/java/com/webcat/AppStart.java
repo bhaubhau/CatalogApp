@@ -499,6 +499,15 @@ public class AppStart {
 			}
 		});	
 		
+		get("/getSlideShowImages",new Route(){
+			public Object handle(Request request, Response response) 
+			{					 
+				String imagesList = "";
+				DBCollection coll = db.getCollection("slides");				
+				imagesList=coll.findOne().toString();	 
+				return imagesList;	             
+			}
+		});
 	}
 	
 	

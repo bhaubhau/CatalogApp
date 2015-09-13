@@ -11,5 +11,8 @@ app.controller('UserCtrl', ['$scope','$http','$cookies',function($scope, $http,$
 		{
 			$scope.adminUser=false;
 		}
-	});		
+	});	
+	
+	$http.get("/getSlideShowImages")
+	.success(function(data) {$scope.slides = data;});	
 }]);

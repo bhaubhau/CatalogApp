@@ -1,4 +1,4 @@
-jQuery(document).ready(function() {
+jQuery(window).load(function() {
 	$('.carousel').carousel({
     	pause: "false",
     	interval: 4000
